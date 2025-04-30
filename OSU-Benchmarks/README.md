@@ -1,9 +1,6 @@
 # 📊 OSU Micro-Benchmarks on OCI ARM HPC Cluster
 
 This guide explains how to install, compile, and run OSU Micro-Benchmarks on an ARM-based OpenMPI cluster deployed on [Oracle Cloud Infrastructure (OCI)](https://www.oracle.com/cloud/).  
-
-🔗 Script used: [`osu-benchmark.sh`](https://github.com/dezmaIT/OCI-HPC-ARM-EXAMPLES/blob/main/OSU-Benchmarks/osu-benchmark.sh)
-
 ---
 
 ## ✅ Prerequisites
@@ -95,7 +92,6 @@ This will:
 ## 📎 References
 
 - [OSU Benchmarks Website](https://mvapich.cse.ohio-state.edu/benchmarks/)
-- [OpenMPI on OCI ARM GitHub](https://github.com/dezmaIT/OpenMPI-OCI-ARM)
 - [OCI Ampere Docs](https://docs.oracle.com/en-us/iaas/Content/Compute/References/arm-processors.htm)
 
 ---
