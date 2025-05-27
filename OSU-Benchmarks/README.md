@@ -76,7 +76,7 @@ This will:
 | Path | Description |
 |------|-------------|
 | `/mnt/mpi_shared/hostfile` | MPI hostfile listing node IPs or hostnames |
-| `/usr/local/osu-benchmarks/bin/` | Compiled benchmark binaries |
+| `/mnt/mpi_shared/osu-benchmarks/bin/` | Compiled benchmark binaries |
 | `/var/log/osu-benchmark-*.log` | Log files for installation and compilation |
 
 ---
@@ -103,7 +103,7 @@ This will:
 - Confirm binaries are compiled for `aarch64` using:
 
 ```bash
-file /usr/local/osu-benchmarks/bin/osu_bw
+file  /mnt/mpi_shared/osu-benchmarks/bin/osu_bw
 ```
 
 ---

@@ -54,19 +54,22 @@ $MPICC $CFLAGS \
 	$LDFLAGS
 	
 # Verify compilation
+echo "=== Verifying Binaries ==="
 if [ -f "$PT2PT_DIR/osu_bw" ] && [ -f "$PT2PT_DIR/osu_latency" ]; then
-	echo "SUCCESS: Benchmarks compiled"
-	sudo mkdir -p /usr/local/osu-benchmarks/bin
-	sudo cp "$PT2PT_DIR/osu_bw" "$PT2PT_DIR/osu_latency" /usr/local/osu-benchmarks/bin/
-	echo "Installed to /usr/local/osu-benchmarks/bin"
-	
-	# Verify ARM binary
-	echo "Binary verification:"
-	file /usr/local/osu-benchmarks/bin/osu_bw | grep -i "ARM aarch64"
+  echo "SUCCESS: Benchmarks compiled"
+
+  # Deploy to /mnt/mpi_shared so all nodes can use them
+  mkdir -p /mnt/mpi_shared/osu-benchmarks/bin
+  cp "$PT2PT_DIR/osu_bw" "$PT2PT_DIR/osu_latency" /mnt/mpi_shared/osu-benchmarks/bin/
+  echo "Binaries deployed to /mnt/mpi_shared/osu-benchmarks/bin"
+
+  # Verify ARM binary
+  echo "Binary verification:"
+  file /mnt/mpi_shared/osu-benchmarks/bin/osu_bw | grep -i "ARM aarch64"
 else
-	echo "ERROR: Compilation failed"
-	echo "Files in $UTIL_DIR:"
-	ls -l "$UTIL_DIR"/osu_util*
-	exit 1
+  echo "ERROR: Compilation failed"
+  echo "Files in $UTIL_DIR:"
+  ls -l "$UTIL_DIR"/osu_util*
+  exit 1
 fi
 
