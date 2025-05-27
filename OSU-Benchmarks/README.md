@@ -34,7 +34,7 @@ Run the installer script on the head node:
 This will:
 - Download OSU Micro-Benchmarks v7.0.1
 - Compile `osu_bw` and `osu_latency` with `-mcpu=ampere1`
-- Install binaries into `/usr/local/osu-benchmarks/bin/`
+- Install binaries into `/mnt/mpi_shared/osu-benchmarks/bin/`
 - Write logs to `/var/log/osu-benchmark-<timestamp>.log`
 
 ---
@@ -42,8 +42,8 @@ This will:
 ## 🧪 Basic Testing
 
 ```bash
-mpirun -np 2 -hostfile /mnt/mpi_shared/hostfile /usr/local/osu-benchmarks/bin/osu_bw
-mpirun -np 2 -hostfile /mnt/mpi_shared/hostfile /usr/local/osu-benchmarks/bin/osu_latency
+mpirun -np 2 -hostfile /mnt/mpi_shared/hostfile /mnt/mpi_shared/osu-benchmarks/bin/osu_bw
+mpirun -np 2 -hostfile /mnt/mpi_shared/hostfile /mnt/mpi_shared/osu-benchmarks/bin/osu_latency
 ```
 
 ---
@@ -57,7 +57,7 @@ for np in 2 4 6 8 12 16; do
   echo "🔹 Running osu_bw with $np ranks"
   mpirun -np $np -hostfile /mnt/mpi_shared/hostfile \
          --map-by ppr:1:node \
-         /usr/local/osu-benchmarks/bin/osu_bw
+         /mnt/mpi_shared/osu-benchmarks/bin/osu_bw
   echo ""
 done
 ```
