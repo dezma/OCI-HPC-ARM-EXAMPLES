@@ -50,16 +50,38 @@ mpirun -np 2 -hostfile /mnt/mpi_shared/hostfile /mnt/mpi_shared/osu-benchmarks/b
 
 ## 🚀 Multi-Node Scaling Test
 
-Test bandwidth across an increasing number of nodes (example assumes 8-node cluster):
+Test bandwidth between nodes :
 
 ```bash
-for np in 2 4 6 8 12 16; do
-  echo "🔹 Running osu_bw with $np ranks"
-  mpirun -np $np -hostfile /mnt/mpi_shared/hostfile \
-         --map-by ppr:1:node \
-         /mnt/mpi_shared/osu-benchmarks/bin/osu_bw
-  echo ""
+#!/bin/bash
+
+# Path to binaries
+OSU_BW_BIN="/mnt/mpi_shared/osu-benchmarks/bin/osu_bw"
+HOSTFILE="/mnt/mpi_shared/hostfile"
+
+# Read all nodes from hostfile
+NODES=($(awk '{print $1}' "$HOSTFILE" | grep -v "^#"))
+
+echo "🔹 Nodes in the cluster:"
+echo "${NODES[@]}"
+echo ""
+
+# Loop over all unique pairs
+for (( i=0; i<${#NODES[@]}; i++ )); do
+  for (( j=i+1; j<${#NODES[@]}; j++ )); do
+    NODE1=${NODES[$i]}
+    NODE2=${NODES[$j]}
+    echo "🔹 Testing bandwidth between $NODE1 and $NODE2"
+
+    mpirun -np 2 \
+      -host "$NODE1,$NODE2" \
+      --map-by ppr:1:node \
+      $OSU_BW_BIN
+
+    echo ""
+  done
 done
+
 ```
 
 This will:
